@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headerload :: load">
+<title th:text="'Gestion Des Notes'"></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+
+	<div class="container">
+
+		<table th:if="${action == 'creer'}">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Note</th>
+					<th>Matiere</th>
+					<th>Prof</th>
+					<th>Date</th>
+					<th>Trimestre</th>
+					<th>Avancement</th>
+					<th>Eleve</th>
+					<th>Classe</th>
+					<th>Avis</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="note : ${listenote}">
+					<td>
+						<a th:href="@{/ModifierNote/{id} (id=${note.id}) }" th:text="${note.id}"></a>
+					</td>
+					<td th:text="${note.note}" />
+					<td th:text="${note.matiere.nom}" />
+					<td th:text="${note.prof.nom}" />
+					<td th:text="${note.dateSaisie}" />
+					<td th:text="${note.trimestre.nom}" />
+					<td th:text="${note.avancement}" />
+					<td th:text="${note.eleve.nom}" />
+					<td th:text="${note.classe.nom}" />
+					<td th:text="${note.avis}" />
+					<td>
+						<a th:href="@{/SupprimerNote/{id} (id=${note.id}) }" th:text="'Supprimer'"></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div th:if="${action == 'creer'}">
+			<h2 th:text="Ajout"></h2>
+			<form action="#" th:action="creerNote" th:object="${noteform}" method="post">
+				<input type="hidden" th:field="*{id}" th:value="*{id}" />
+				
+				<label th:text="Note"></label>
+				<input type="number" th:field="*{note}"/>
+				
+				<label th:text="Matiere"></label>
+				<select th:field="*{matiere}">
+					<option th:each="m : ${listMatiere}" th:value="${m.id}" th:text="${m.nom}"/>
+				</select>
+				
+				<label th:text="Prof"></label>
+				<select th:field="*{prof}">
+					<option th:each="p : ${listProf}" th:value="${p.id}" th:text="${p.nom}"/>
+				</select>
+				
+				<label th:text="Date"></label>
+				<input type="date" th:field="*{dateSaisie}"/>
+				
+				<label th:text="Trimestre"></label>
+				<select th:field="*{trimestre}">
+					<option th:each="t : ${listTrim}" th:value="${t.nom}" th:text="${t.nom}"/>
+				</select>
+				
+				<label th:text="Avancement"></label>
+				<input type="number" th:field="*{avancement}"/>
+				
+				<label th:text="Eleve"></label>
+				<select th:field="*{eleve}">
+					<option th:each="e : ${listEleve}" th:value="${e.id}" th:text="${e.nom}"/>
+				</select>
+				
+				<label th:text="Classe"></label>
+				<select th:field="*{classe}">
+					<option th:each="c : ${listClasse}" th:value="${c.id}" th:text="${c.nom}"/>
+				</select>
+				
+				<label th:text="Avis"></label>
+				<input type="text" th:field="*{avis}"/>
+				
+				<button type="submit">Valider</button>
+			</form>
+		</div>
+
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+</body>
+</html>

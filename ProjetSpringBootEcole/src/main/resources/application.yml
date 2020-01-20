@@ -1,0 +1,16 @@
+spring:
+  
+      jpa:
+          hibernate:
+            ddl-auto: validate
+          properties:
+            hibernate:
+              hibernate.enable_lazy_load_no_trans: true
+              show_sql: true
+              use_sql_comments: true
+              format_sql: true
+
+      datasource:
+           url: jdbc:mysql://localhost:3306/gestioneleves
+           username: poeAgent
+           password: 6a2c889706b0eff0613d207f4c0ce61b
